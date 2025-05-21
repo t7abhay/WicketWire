@@ -1,2 +1,2 @@
 # WicketWire
-🚌SmallBuss 🚌
+🚌SmallBus 🚌
