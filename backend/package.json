@@ -15,7 +15,12 @@
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
     "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "memorystore": "^1.6.7",
     "mongoose": "^8.15.0"
   },
   "devDependencies": {

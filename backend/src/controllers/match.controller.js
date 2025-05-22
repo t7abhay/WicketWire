@@ -1,6 +1,7 @@
-import { seasonIds } from "../configs/seasonIds.js";
-import { seasonValidator } from "../utilities/seasonInfoFetcher.js";
 import { Match } from "../model/match.model.js";
+import { ApiResponse } from "../utilities/ApiResponse.js";
+import { ApiError } from "../utilities/ApiError.js";
+import { asyncHandler } from "../utilities/asyncHandler.js";
 /**
  * Note hardcoded season id has been utilized due to free nature of this project
  *
@@ -12,40 +13,50 @@ import { Match } from "../model/match.model.js";
 
 /** 
 
-* @reason {every match info in db would have that matches seasonId}
+* @reason {every match info in db would have that matches seasonYear}
 
 
 */
 export const matchesInfo = asyncHandler(async (req, res) => {
-  const { seasonYear } = req?.body?.seasonYear;
+  const seasonYear = req?.query?.seasonYear ?? 2025;
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  console.log(seasonYear, page, limit, skip);
 
-  const seasonId = seasonValidator(seasonYear);
+  let matchesDetails;
+  let total;
+  const currentYear = new Date().getFullYear();
 
-  if (seasonId) {
-    const matchesDetails = await Match.findOne(
-      {
-        id: seasonId,
-      },
-      {
-        _id: 1,
-        shortenedUrl: 1,
-      }
-    );
+  if (String(seasonYear) < 2008 || String(seasonYear) > currentYear) {
+    return res
+      .status(400)
+      .json(
+        new ApiError(400, "Invalid IPL Season Year", ["season year error"], "")
+      );
   }
 
-  /* 
-    
-    we want match info based on the selected season years
+  if (seasonYear) {
+    matchesDetails = await Match.find({ season: String(seasonYear) })
+      .skip(skip)
+      .limit(limit);
+    total = await Match.countDocuments({ season: String(seasonYear) });
+  }
 
+  if (!matchesDetails || matchesDetails.length === 0) {
+    return res
+      .status(404)
+      .json(new ApiError(404, "Failed to fetch match data"));
+  }
 
-
-    
-    */
+  const data = {
+    page,
+    limit,
+    total,
+    totalPages: Math.ceil(total / limit),
+    data: matchesDetails,
+  };
+  return res.status(200).json(new ApiResponse(200, data, "Match data fetched"));
 });
 
-/**
- * Description placeholder
- *
- * @type {*}
- */
-export const playerInfo = asyncHandler(async (req, res) => {});
+export const liveMatchInfo = asyncHandler(async (req, res) => {});
