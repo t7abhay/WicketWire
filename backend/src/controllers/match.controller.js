@@ -55,6 +55,7 @@ export const matchesInfo = asyncHandler(async (req, res) => {
 export const liveMatchDetails = asyncHandler(async (req, res) => {
   let liveMatch = await liveMatchInfo();
 
+  console.log(liveMatch);
   if (!liveMatch) {
     return res
       .status(404)
