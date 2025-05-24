@@ -53,7 +53,9 @@ app.use(limiter);
 // Route Imports
 import liveFeedRouter from "./src/routes/cricket.routes.js";
 import cricketRouter from "./src/routes/cricket.routes.js";
+import healthRouter from "./src/routes/health.routes.js";
 
+app.use("/api/v1/", healthRouter);
 app.use("/api/v1", cricketRouter);
 app.use("/api/v1", liveFeedRouter);
 
