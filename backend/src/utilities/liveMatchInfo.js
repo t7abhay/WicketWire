@@ -1,8 +1,8 @@
-import { getDate } from "./liveDateCatcher.js";
 import { liveMatchAxiosInstance } from "../configs/axios/liveMatchAxiosInstance.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 export const liveMatchInfo = async () => {
-  let currentDate = getDate();
   try {
     const data = await liveMatchAxiosInstance.get(
       process.env.CURRENT_IPL_ENDPOINT
