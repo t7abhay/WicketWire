@@ -4,32 +4,31 @@ import cookieParser from "cookie-parser";
 import { rateLimit } from "express-rate-limit";
 import session from "express-session";
 import cors from "cors";
-import cricketRouter from "./src/routes/cricket.route.js";
 import memorystore from "memorystore";
 
 const MemoryStore = memorystore(session);
 
 export const app = express();
 const corsConfig = {
-  origin: process.env.CORS_ORIGIN,
+  origin: process.env.FRONTEND_URL,
 
   credentials: true,
 
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsConfig));
 app.use(cookieParser());
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use(express.json({ limit: "15mb" }));
+app.use(express.urlencoded({ extended: true, limit: "15mb" }));
 app.use(morgan("dev"));
 
 app.set("trust proxy", 1);
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 100, // Limit each IP to 100 requests per window
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
   standardHeaders: "draft-8",
   legacyHeaders: false,
   message: "Rate limited ⏱",
@@ -52,7 +51,11 @@ app.use(
 
 app.use(limiter);
 
-app.use("/api/v1/", cricketRouter);
-// app.use("/api/v1/match-info/live/");
+// Route Imports
+import liveFeedRouter from "./src/routes/cricket.routes.js";
+import cricketRouter from "./src/routes/cricket.routes.js";
+
+app.use("/api/v1", cricketRouter);
+app.use("/api/v1", liveFeedRouter);
 
 export default app;
