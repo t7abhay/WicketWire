@@ -1,6 +1,8 @@
 import app from "./app.js";
 import { dbInstance } from "./src/configs/database/dbConnection.js";
+import dotenv from"dotenv"
 
+dotenv.config()
 /**
  * Default Port is fetched via process  & injected by node --watch --env-file=.env
  * @type {number}
