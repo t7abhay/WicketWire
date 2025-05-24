@@ -32,7 +32,7 @@ export default function MatchesPage() {
     setLiveError(null);
 
     axios
-      .get(import.meta.env.BACKEND_URL + "/match-info/live")
+      .get("https://wicketwire.onrender.com/api/v1/match-info/live")
       .then((res) => {
         setLiveMatch(res.data.data);
       })
@@ -51,7 +51,7 @@ export default function MatchesPage() {
     setPastError(null);
 
     axios
-      .get(import.meta.env.BACKEND_URL + "/match-info", {
+      .get("https://wicketwire.onrender.com/api/v1/match-info", {
         params: { seasonYear, page, limit },
       })
       .then((res) => {
