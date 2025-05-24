@@ -10,7 +10,7 @@ const PORT = process.env.SERVER_PORT || 44600;
 dbInstance()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`Server listening on http://localhost:${PORT}`);
+      console.log(`Server listening on localhost:${PORT}`);
     });
   })
   .catch((error) => {
