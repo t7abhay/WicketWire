@@ -13,7 +13,7 @@ export default function LiveMatchTable({ match }) {
         {/* Team 1 */}
         <div className="team flex flex-col items-center">
           <img
-            src={teams1.thumbnail}
+            src={teams1?.thumbnail}
             alt={`${teams1.name} logo`}
             className="w-20 h-20 mb-2"
           />
@@ -25,7 +25,7 @@ export default function LiveMatchTable({ match }) {
         {/* Team 2 */}
         <div className="team flex flex-col items-center">
           <img
-            src={teams2.thumbnail}
+            src={teams2?.thumbnail}
             alt={`${teams2.name} logo`}
             className="w-20 h-20 mb-2"
           />
