@@ -14,7 +14,7 @@ export default function LiveMatchTable({ match }) {
         <div className="team flex flex-col items-center">
           <img
             src={teams1?.thumbnail}
-            alt={`${teams1.name} logo`}
+            alt={`${teams1?.name} logo`}
             className="w-20 h-20 mb-2"
           />
           <p className="font-semibold">{(teams1.name, teams1.score)}</p>
@@ -26,10 +26,10 @@ export default function LiveMatchTable({ match }) {
         <div className="team flex flex-col items-center">
           <img
             src={teams2?.thumbnail}
-            alt={`${teams2.name} logo`}
+            alt={`${teams2?.name} logo`}
             className="w-20 h-20 mb-2"
           />
-          <p className="font-semibold">{(teams2.name, teams2.score)}</p>
+          <p className="font-semibold">{(teams2?.name, teams2?.score)}</p>
         </div>
       </div>
 
