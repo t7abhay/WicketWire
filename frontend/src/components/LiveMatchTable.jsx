@@ -17,7 +17,7 @@ export default function LiveMatchTable({ match }) {
             alt={`${teams1?.name} logo`}
             className="w-20 h-20 mb-2"
           />
-          <p className="font-semibold">{(teams1?.name, teams1.score)}</p>
+          <p className="font-semibold">{(teams1?.name, teams1?.score)}</p>
         </div>
 
         <span className="text-2xl font-bold">vs</span>
